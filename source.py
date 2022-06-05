@@ -99,10 +99,12 @@ add_input_page = """<!DOCTYPE html>
 <body>
 
 <h1>HTML Форма с кнопкой отправки</h1>
-
+<form action="/" method="get">
+    <button>Вернуться назад</button>
+</form>
 <form action="/action_page.php">
-  Фамилия:<br>
-  <input type="text" name="lastname" value="Щипунов">
+  Введите сюда вопрос, на который пользователь должен будет ответить в форме:<br>
+  <input type="text" name="question">
   <br><br>
   <input type="submit" value="Отправить">
 </form> 

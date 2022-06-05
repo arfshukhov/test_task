@@ -1,15 +1,14 @@
 from flask import *
 from source import *
 
-
-elements: list = []
-
 app = Flask(__name__)
 
 
 class Constructor:
     def __init__(self):
         super().__init__()
+
+    elements: list = []
 
     @staticmethod
     @app.route('/')
@@ -26,10 +25,10 @@ class Constructor:
 class Input:
     def __init__(self, question):
         self.question = question
-        self.code = """<div style="position: absolute; width: 120%; left: 18%; z-index: 2">"""\
+        self.code = """<div style="position: absolute; width: 120%; left: 18%; z-index: 2">""" \
                     f"<p>{self.question}</p>" \
                     f"<input name={self.question} >" \
-                    "</input>"\
+                    "</input>" \
                     "</div>"
 
 
@@ -37,18 +36,18 @@ class TextArea:
     def __init__(self, question):
         self.question = question
         self.code = "<form>" \
-                    f"<p>{self.question}</p>"\
-                    f"<textarea name={self.question}>"\
-                    "</textarea>"\
+                    f"<p>{self.question}</p>" \
+                    f"<textarea name={self.question}>" \
+                    "</textarea>" \
                     "</form>"
 
     ...
+
 
 class Select():
     ...
 
 
 if __name__ == '__main__':
-
     constructor = Constructor()
     constructor.run()
