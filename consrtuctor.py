@@ -14,11 +14,13 @@ class Constructor:
     @staticmethod
     @app.route('/')
     def draw_main_page():
-        return "".join([opening_html_tag, default_style_set, header, open_workspace, Input("почему вы пидор обоссанный?").code,
-                        close_workspace, closer_html_tag])
+        return "".join([opening_html_tag, default_style_set, header, open_workspace, add_space_buttons,
+                        Input("how are you?").code, close_workspace, closer_html_tag])
+
     @staticmethod
-    @app.route("")
-    def add_input_page(self):
+    @app.route("/add_input_page/")
+    def draw_add_input_page():
+        return add_input_page
 
 
 class Input:

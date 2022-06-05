@@ -55,12 +55,62 @@ footer = """<div id="footer"></div>
 </body>"""
 
 add_space_buttons = """
-<div style="position: absolute; width: 120%; left: 18%; z-index: 2">
-<form action="">
+<div>
+<form action="/add_input_page/" method="get">
+<button style="position:absolute;
+    width:120px;
+    height:60px;
+    left: 18%; 
+    top: 5%; 
+    z-index: 3;
+    background-color: lightblue;">
+    Добавить поле ввода
+    </button>
+</form>
+<form action="/add_input_page/" method="get">
+<button style="position:absolute;
+    width:120px;
+    height:60px;
+    left: 36%; 
+    top: 5%; 
+    z-index: 3;
+    background-color: lightblue;">
+    Добавить текстовое поле
+    </button>
+</form>
+<form action="/add_input_page/" method="get">
+<button style="position:absolute;
+    width:120px;
+    height:60px;
+    left: 54%; 
+    top: 5%;
+    z-index: 3;
+    background-color: lightblue;">
+    Добавить поле выбора ответа
+    </button>
+</form>
 </div>
 """
 
 closer_html_tag = "</html>"
+
+add_input_page = """<!DOCTYPE html>
+<html>
+<body>
+
+<h1>HTML Форма с кнопкой отправки</h1>
+
+<form action="/action_page.php">
+  Фамилия:<br>
+  <input type="text" name="lastname" value="Щипунов">
+  <br><br>
+  <input type="submit" value="Отправить">
+</form> 
+
+<p>Если Вы нажмете на кнопку "Отправить", данные форма будут отправлены на страницу "action_page.php".</p>
+
+</body>
+</html>"""
 
 
 
