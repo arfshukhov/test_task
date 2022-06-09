@@ -1,10 +1,14 @@
+<!DOCTYPE html>
 <html>
 <style>
 
 #header {
     background-color:blue;
     text-align:center;
-    color: white
+    color: white;
+    font-family: "Microsoft Sans Serif";
+    top:0;
+    z-index: 0;
 }
 
 #sidebar_left {
@@ -14,7 +18,7 @@
     height: 100%;
     left: 0.5%;
     z-index: 1;
-    top: 5%;
+    top: 7%;
 }
 #sidebar_right {
     background-color: lightblue;
@@ -23,7 +27,7 @@
     height: 100%;
     left: 84.5%;
     z-index: 1;
-    top: 5%;
+    top: 7%;
 }
 
 #footer {
@@ -44,13 +48,13 @@
 
 <div>
 <div id="sidebar_left"></div>
-<div style="position:absolute; left:18%; top: 10%; z-index: 2">
+<div style="position:absolute; left:18%; top: 10%; z-index: 2; font-size: 18px; font-family: 'Microsoft Sans Serif';">
 
     <label name="form_id">Уникальный form_uid вашей формы:{{form_uid}}</label>
 <p></p>
 </div>
 
-<div style="position:absolute; left: 18%; top:14%; z-index: 2">
+<div style="position:absolute; left: 18%; top:14%; z-index: 2; font-size: 18px; font-family: 'Microsoft Sans Serif">
 
 
     <div><br>Название вашей формы: <input type="text" name="name_of_form"></br>
@@ -62,10 +66,12 @@
 <button style="position:absolute;
     width:120px;
     height:60px;
-    left: 110%;
-    top: -40%;
+    left: 40%;
+    top: 11%;
     z-index: 3;
-    background-color: lightblue;">
+    background-color: lightblue;
+    font-size: 15px;
+    font-family: 'Microsoft Sans Serif">
     Добавить поле ввода
     </button>
 </form>
@@ -73,10 +79,12 @@
 <button style="position:absolute;
     width:120px;
     height:60px;
-    left: 170%;
-    top: -40%;
+    left: 50%;
+    top: 11%;
     z-index: 3;
-    background-color: lightblue;">
+    background-color: lightblue;
+    font-size: 15px;
+    font-family: 'Microsoft Sans Serif">
     Добавить текстовое поле
     </button>
 </form>
@@ -84,17 +92,25 @@
 <button style="position:absolute;
     width:120px;
     height:60px;
-    left: 230%;
-    top: -40%;
+    left: 60%;
+    top: 11%;
     z-index: 3;
-    background-color: lightblue;">
+    background-color: lightblue;
+    font-family: 'Microsoft Sans Serif';
+    font-size: 15px;">
     Добавить поле выбора ответа
     </button>
 </form>
 
 </div>
 
-    {{spaces}}
+<div><iframe src="/spaces/" style=
+        "position: absolute;
+         width: 60%;
+         height: 80%;
+         left:18%;
+         top:20%;
+         z-index: 3"></iframe></div>
 <div id="sidebar_right"></div>
 </div>
 </html>

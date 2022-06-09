@@ -3,11 +3,11 @@
 <body>
 
 <h1>Добавить текстовое поле</h1>
-<form action="/" method="get">
+<form action="/form_editor:{{form_uid}}/" method="get">
     <button>Вернуться назад</button>
 </form>
 <p></p>
-<form action="/registration_input_page:{{form_uid}}" method="post">
+<form action="/registration_input_page:{{form_uid}}/" method="post">
   Введите сюда вопрос, на который пользователь должен будет ответить в форме:<br>
   <input type="text" name="question">
   <br><br>
