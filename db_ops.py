@@ -42,3 +42,18 @@ def add_new_space(form_uid, type, question, *variants: list):
     else:
         Spaces.insert(form_uid=form_uid, type=type, question=question, variants="").execute()
 
+
+def recieve_spaces(form_uid):
+    elements: list = []
+    f_id = Spaces.select().where(Spaces.form_uid==form_uid)
+    for d in f_id:
+        elements.extend([[d, d.type, d.question, d.variants]])
+    return elements
+
+
+def delete_space(form_uid, type, question):
+    Spaces.delete().where(Spaces.form_uid == form_uid, Spaces.type == type,
+                          Spaces.question == question).execute()
+
+
+

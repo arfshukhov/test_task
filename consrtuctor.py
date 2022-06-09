@@ -1,13 +1,10 @@
 from flask import *
 from source import *
 from random import *
-
+from db_ops import *
 
 app = Flask(__name__)
 
-# Список из полей, которые будут
-# отобображаться на странице редактора форм
-spaces = []
 
 # Список из последовательностей type, question, variants(опционально),
 # которые попадут в БД
@@ -24,31 +21,38 @@ class Constructor:
         return form_id
 
     @classmethod
-    def build_id_element(cls, id):
-        return f"""<div style="position:relative; left:18%">
-        <label name="form_id">{id}</label>
-        <p></p>
-        """
+    def remove_a_space(cls, type, question):
+        delete_space(form_uid=request.cookies.get("form_uid"), type=type, question=question)
+        return draw_home_page(form_uid=request.cookies.get("form_uid"))
 
     @classmethod
     def render_spaces(cls):
-        elements = str(request.cookies.get("elements")).split("#$#")
-        for tmp in elements:
-            ready_tmp = tmp.split(",")
-            match ready_tmp[1]:
+        spaces = []  # Список из полей, которые будут
+        # отобображаться на странице редактора форм
+        form_uid = str(request.cookies.get("form_uid"))
+        print(form_uid)
+        elements = recieve_spaces(form_uid)
+        print(elements)
+        for segment in elements:
+            print(segment, 12345)
 
-
-
+            match segment[1]:
+                case "input":
+                        spaces.append(Input(segment[2]).code)
+                case "textarea":
+                        spaces.append(TextArea(segment[2]).code)
+                case "select":
+                        pass
+                case _:
+                    pass
+        print(spaces)
+        return "".join(spaces)
 
     @classmethod
-    def reg_new_input_space(cls, question):
+    def reg_new_space(cls, type, question, *variants):
         form_uid = str(request.cookies.get("form_uid"))
-        elements = str(request.cookies.get("elements"))
-        elements += f"""""{form_uid}", "input", "{question}", ""#$#"""
-        page = make_response(draw_home_page(form_uid=form_uid))
-        page.set_cookie("elements", str(elements), max_age=60)
-        return page
-
+        add_new_space(form_uid, type, question, *variants)
+        return draw_home_page(form_uid)
 
 class Form_id:
     def __init__(self, id):
@@ -58,14 +62,7 @@ class Form_id:
 class Input:
     def __init__(self, question: str):
         self.question = question
-        self.code = f"""
-                    <div style="position: relative; width: 120%; left: 18%; top:140px; z-index: 3">
-                    <p1></p1>
-                    <p2>{self.question}</p2>
-                    <input name="{self.question}">
-                    </input> 
-                    </div>
-                    <p3></p3>"""
+        self.code = render_template("input_space.html", question=self.question, type="input")
 
 
 class TextArea:
@@ -83,8 +80,6 @@ class Select:
     def __init__(self, question: str, variants: list):
         self.question = question
         self.variants = variants
-
-
         self.code = "".join(["""<div style="position:absolute; left:18%; top:10%; z-index:3">""",
                              f"<p>{self.question}</p>", "<form>", self.compile_variants(), "</form>", "</div>"])
 
@@ -110,13 +105,22 @@ def draw_start_page():
     form_uid = generate_id()
     page = make_response(draw_home_page(form_uid=form_uid))
     page.set_cookie("form_uid", form_uid, max_age=60)
-    page.set_cookie("elements", "", max_age=60)
     return page
+
+@app.route("/spaces/")
+def draw_spaces():
+    return Constructor.render_spaces()
 
 
 @app.route("/form_editor:<form_uid>")
 def draw_home_page(form_uid):
-    return render_template("form_editor_home_page.html", form_uid=form_uid, spaces=f"""{request.cookies.get("form_uid")}""")
+    return render_template("form_editor_home_page.html", form_uid=form_uid)
+
+
+@app.route("/remove_space/type:<type>;question:<question>/", methods=["GET", "POST"])
+def remove_space(type, question):
+    return Constructor.remove_a_space(type, question)
+
 
 
 @app.route("/add_input_page:<form_uid>/")
@@ -124,9 +128,9 @@ def draw_add_input_page(form_uid):
     return render_template("add_input_page.html", form_uid=form_uid)
 
 
-@app.route("/registration_input_page:<form_uid>", methods=["GET", "POST"])
+@app.route("/registration_input_page:<form_uid>/", methods=["GET", "POST"])
 def draw_reg_input_page(form_uid):
-    return Constructor.reg_new_input_space(request.form["question"])
+    return Constructor.reg_new_space("input", request.form.get("question"))
 
 
 if __name__ == '__main__':
